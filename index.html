@@ -1,36 +1,650 @@
-body {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StudyMate - Student Planner</title>
+
+<style>
+* {
+  box-sizing: border-box;
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f3ff;
-  color: #20263a;
-  position: relative;
-  isolation: isolate;
+  padding: 0;
 }
 
-/* Study related background pattern */
+html {
+  background: #f4f3ff;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #20263a;
+  min-height: 100vh;
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+}
+
+/* STUDY BACKGROUND */
 body::before {
-  content: "📚       ✏️       🎓       📖       🖊️       📐       📓       🧮       📚       🎓";
+  content: "📚     ✏️     🎓     📖     🖊️     📐     📓     🧮     📚     🎓     📚     ✏️     📖     🎓     📐";
   position: fixed;
   inset: 0;
   z-index: -1;
   pointer-events: none;
   font-size: 35px;
   line-height: 125px;
-  letter-spacing: 22px;
-  word-spacing: 12px;
-  white-space: pre-wrap;
+  letter-spacing: 15px;
+  word-spacing: 15px;
   overflow: hidden;
-  opacity: 0.13;
+  opacity: 0.16;
+  background: linear-gradient(135deg, #f4f3ff, #eef2ff);
   color: #6658e8;
-  background:
-    linear-gradient(135deg, #f4f3ff, #eef2ff);
 }
 
-/* Make cards slightly transparent */
-.card {
-  background: rgba(255, 255, 255, 0.93);
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(102, 88, 232, 0.12);
-  border-radius: 14px;
-  box-shadow: 0 5px 20px rgba(50, 50, 100, 0.05);
+/* HEADER */
+header {
+  background: linear-gradient(120deg, #5548d9, #8175f2);
+  color: white;
+  padding: 28px 18px;
+  box-shadow: 0 5px 20px rgba(70, 50, 150, 0.15);
 }
+
+.container {
+  max-width: 1050px;
+  margin: auto;
+  padding: 18px;
+}
+
+header h1 {
+  font-size: 30px;
+  margin-bottom: 7px;
+  color: white;
+}
+
+header p {
+  color: #eeeeff;
+  font-size: 14px;
+}
+
+/* CARDS */
+.card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(102, 88, 232, 0.13);
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 17px;
+  box-shadow: 0 5px 20px rgba(50, 50, 100, 0.06);
+}
+
+h2 {
+  font-size: 19px;
+  margin-bottom: 16px;
+  color: #252943;
+}
+
+h3 {
+  color: #252943;
+  margin-bottom: 12px;
+}
+
+/* STATISTICS */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-bottom: 17px;
+}
+
+.stat {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  border: 1px solid #e8e6fa;
+}
+
+.stat small {
+  color: #777b91;
+  font-size: 13px;
+}
+
+.stat strong {
+  display: block;
+  font-size: 30px;
+  color: #6658e8;
+  margin-top: 8px;
+}
+
+/* FORM */
+.form-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+input, select {
+  padding: 13px;
+  border: 1px solid #dedff0;
+  border-radius: 10px;
+  font-size: 14px;
+  background: white;
+  color: #20263a;
+  outline: none;
+  min-width: 0;
+}
+
+input:focus, select:focus {
+  border-color: #6658e8;
+  box-shadow: 0 0 0 3px rgba(102, 88, 232, 0.1);
+}
+
+#taskInput {
+  flex: 1;
+}
+
+/* BUTTONS */
+button {
+  padding: 12px 17px;
+  border: none;
+  border-radius: 10px;
+  background: #6658e8;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #5143cf;
+  transform: translateY(-1px);
+}
+
+.delete {
+  background: #fff0f0;
+  color: #bd3434;
+  padding: 9px 12px;
+}
+
+.delete:hover {
+  background: #ffe0e0;
+}
+
+/* TASK LIST */
+.task {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 0;
+  border-bottom: 1px solid #eeeeF5;
+}
+
+.task:last-child {
+  border-bottom: none;
+}
+
+.task input {
+  width: 18px;
+  height: 18px;
+  accent-color: #198754;
+}
+
+.task span {
+  flex: 1;
+  color: #252943;
+  overflow-wrap: anywhere;
+}
+
+.task.done span {
+  text-decoration: line-through;
+  color: #999;
+}
+
+.tag {
+  background: #f0efff;
+  color: #5d53c9;
+  padding: 6px 9px;
+  border-radius: 20px;
+  font-size: 11px;
+}
+
+/* PROGRESS */
+.progress {
+  height: 11px;
+  background: #ececf5;
+  border-radius: 20px;
+  overflow: hidden;
+  margin-top: 12px;
+}
+
+.progress div {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #6658e8, #22a06b);
+  transition: width 0.3s;
+}
+
+#progressText {
+  color: #666b82;
+  font-size: 13px;
+}
+
+/* SUBJECTS */
+.subject {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 13px 4px;
+  border-bottom: 1px solid #eeeeF5;
+  color: #252943;
+}
+
+.subject:last-child {
+  border-bottom: none;
+}
+
+.subject small {
+  color: #777b91;
+}
+
+/* EMPTY STATE */
+.empty {
+  text-align: center;
+  padding: 25px 10px;
+  color: #85899b;
+  font-size: 14px;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 25px;
+  color: #777b91;
+  font-size: 12px;
+}
+
+/* MOBILE */
+@media(max-width: 600px) {
+
+  .container {
+    padding: 13px;
+  }
+
+  header h1 {
+    font-size: 25px;
+  }
+
+  .stats {
+    gap: 8px;
+  }
+
+  .stat {
+    padding: 13px 9px;
+  }
+
+  .stat strong {
+    font-size: 23px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+
+  .form-row input,
+  .form-row select,
+  .form-row button {
+    width: 100%;
+  }
+
+  .task {
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    font-size: 10px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container">
+    <h1>📚 StudyMate</h1>
+    <p>Your Personal Study & Homework Planner</p>
+  </div>
+</header>
+
+<main class="container">
+
+  <!-- STATISTICS -->
+  <section class="stats">
+
+    <div class="stat">
+      <small>Total Tasks</small>
+      <strong id="total">0</strong>
+    </div>
+
+    <div class="stat">
+      <small>Completed</small>
+      <strong id="completed">0</strong>
+    </div>
+
+    <div class="stat">
+      <small>Remaining</small>
+      <strong id="remaining">0</strong>
+    </div>
+
+  </section>
+
+  <!-- PROGRESS -->
+  <section class="card">
+
+    <h2>🎯 Study Progress</h2>
+
+    <p id="progressText">0% completed</p>
+
+    <div class="progress">
+      <div id="progressBar"></div>
+    </div>
+
+  </section>
+
+  <!-- ADD TASK -->
+  <section class="card">
+
+    <h2>➕ Add New Homework</h2>
+
+    <form id="taskForm">
+
+      <div class="form-row">
+
+        <input
+          id="taskInput"
+          type="text"
+          placeholder="Enter your homework..."
+          maxlength="100"
+          required
+        >
+
+        <button type="submit">Add Task +</button>
+
+      </div>
+
+      <div class="form-row">
+
+        <select id="subjectInput">
+          <option>English</option>
+          <option>Computer</option>
+          <option>Mathematics</option>
+          <option>Physics</option>
+          <option>Urdu</option>
+          <option>Chemistry</option>
+          <option>Other</option>
+        </select>
+
+        <input
+          type="date"
+          id="dateInput"
+          aria-label="Due date"
+        >
+
+      </div>
+
+    </form>
+
+  </section>
+
+  <!-- TASKS -->
+  <section class="card">
+
+    <h2>📝 My Homework Tasks</h2>
+
+    <div id="taskList"></div>
+
+    <button
+      id="clearDone"
+      class="delete"
+      style="margin-top:18px"
+      type="button"
+    >
+      Clear Completed Tasks
+    </button>
+
+  </section>
+
+  <!-- SUBJECTS -->
+  <section class="card">
+
+    <h2>📖 My Subjects</h2>
+
+    <div class="subject">
+      <span>📘 English</span>
+      <small>Language</small>
+    </div>
+
+    <div class="subject">
+      <span>💻 Computer</span>
+      <small>Technology</small>
+    </div>
+
+    <div class="subject">
+      <span>📐 Mathematics</span>
+      <small>Practice</small>
+    </div>
+
+    <div class="subject">
+      <span>🔬 Physics</span>
+      <small>Science</small>
+    </div>
+
+    <div class="subject">
+      <span>📕 Urdu</span>
+      <small>Language</small>
+    </div>
+
+    <div class="subject">
+      <span>🧪 Chemistry</span>
+      <small>Science</small>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  StudyMate © 2026 | Made for Students 📚
+</footer>
+
+<script>
+
+/* LOAD SAVED TASKS */
+
+const $ = id => document.getElementById(id);
+
+let tasks = [];
+
+try {
+
+  tasks = JSON.parse(
+    localStorage.getItem("studymate_tasks") || "[]"
+  );
+
+  if (!Array.isArray(tasks)) {
+    tasks = [];
+  }
+
+} catch(error) {
+
+  tasks = [];
+
+}
+
+/* SAVE TASKS */
+
+function saveTasks() {
+
+  localStorage.setItem(
+    "studymate_tasks",
+    JSON.stringify(tasks)
+  );
+
+  renderTasks();
+
+}
+
+/* DISPLAY TASKS */
+
+function renderTasks() {
+
+  const completed = tasks.filter(
+    task => task.done
+  ).length;
+
+  const total = tasks.length;
+
+  const remaining = total - completed;
+
+  const percent = total
+    ? Math.round((completed / total) * 100)
+    : 0;
+
+  $("total").textContent = total;
+
+  $("completed").textContent = completed;
+
+  $("remaining").textContent = remaining;
+
+  $("progressText").textContent =
+    percent + "% completed";
+
+  $("progressBar").style.width =
+    percent + "%";
+
+  const list = $("taskList");
+
+  list.innerHTML = "";
+
+  if (total === 0) {
+
+    list.innerHTML =
+      '<div class="empty">📚 No tasks yet! Add your first homework.</div>';
+
+    return;
+
+  }
+
+  tasks.forEach(task => {
+
+    const row = document.createElement("div");
+
+    row.className =
+      "task" + (task.done ? " done" : "");
+
+    const checkbox = document.createElement("input");
+
+    checkbox.type = "checkbox";
+
+    checkbox.checked = task.done;
+
+    checkbox.addEventListener("change", () => {
+
+      task.done = checkbox.checked;
+
+      saveTasks();
+
+    });
+
+    const title = document.createElement("span");
+
+    title.textContent = task.title;
+
+    const tag = document.createElement("small");
+
+    tag.className = "tag";
+
+    tag.textContent =
+      task.subject +
+      (task.date ? " • " + task.date : "");
+
+    const deleteButton = document.createElement("button");
+
+    deleteButton.className = "delete";
+
+    deleteButton.textContent = "Delete";
+
+    deleteButton.addEventListener("click", () => {
+
+      tasks = tasks.filter(
+        item => item.id !== task.id
+      );
+
+      saveTasks();
+
+    });
+
+    row.append(
+      checkbox,
+      title,
+      tag,
+      deleteButton
+    );
+
+    list.appendChild(row);
+
+  });
+
+}
+
+/* ADD NEW TASK */
+
+$("taskForm").addEventListener("submit", event => {
+
+  event.preventDefault();
+
+  const title = $("taskInput").value.trim();
+
+  if (!title) return;
+
+  tasks.unshift({
+
+    id: Date.now(),
+
+    title: title,
+
+    subject: $("subjectInput").value,
+
+    date: $("dateInput").value,
+
+    done: false
+
+  });
+
+  $("taskInput").value = "";
+
+  saveTasks();
+
+});
+
+/* CLEAR COMPLETED TASKS */
+
+$("clearDone").addEventListener("click", () => {
+
+  tasks = tasks.filter(
+    task => !task.done
+  );
+
+  saveTasks();
+
+});
+
+/* INITIAL DISPLAY */
+
+renderTasks();
+
+</script>
+
+</body>
+</html>
